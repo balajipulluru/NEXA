@@ -1,0 +1,30 @@
+<md-dialog aria-label="NEXA on Cloud Configuration">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <img src="../icons/nn4.png" style="height: 40px;" />
+            <h2>NEXA on Cloud Configuration</h2>
+            <span flex></span>
+            <a style="cursor: pointer;" ng-click="cancel()"><i class="material-icons">close</i></a>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <form role="form" name="userPrefs">
+                <div layout="column">
+                  <!-- <md-switch ng-model="cloudConfigCtrl.dedicated_server_launch" class="md-primary" name="dedicated_server_launch" aria-label="Switch 1">
+                          Launch Apps on Dedicated Server
+                  </md-switch> -->
+                  <md-input-container ng-show="!cloudConfigCtrl.dedicated_server_launch">
+                    <label>LSF Options</label>
+                    <input ng-model="cloudConfigCtrl.LSF_Options"  type="text">
+                  </md-input-container>
+                    <div layout=row layout-align="end" flex>
+                        <md-button ng-click="cancel()" class="md-raised md-primary">Cancel</md-button>
+                    	<md-button ng-click="savecloudConfig(cloudConfigCtrl)"  type="submit" class="md-raised md-primary">OK</md-button>
+                    </div>
+				</div>
+			</form>
+		</div>
+	</md-dialog-content>
+</md-dialog>

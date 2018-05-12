@@ -1,0 +1,70 @@
+<md-dialog aria-label="Enter the Logic Debug directory" style="max-height: 99vh;max-width: 99vw;">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <img src="../icons/nn4.png" style="height: 40px;" />
+            <h2 ng-show="param!='showPopNotes'">{{dgCtrl.showUseCases}}</h2>
+            <h2 ng-show="param=='showPopNotes'">NEXA Scratch Pad</h2>
+            <span flex></span>
+            <a style="cursor: pointer;" ng-click="cancel()"><i class="material-icons">close</i></a>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content ng-show="helper_loading">
+      <div class="md-dialog-content" layout="column" layout-sm="column" layout-align="center center">
+        <p>Please wait while the Helper Process is being launched...</p>
+        <md-progress-circular class="md-warn md-hue-3" md-diameter="50"></md-progress-circular>'
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-content ng-show="param!='showPopNotes' && !helper_loading">
+        <div class="md-dialog-content">
+            <div ng-show="dgCtrl.showSelectLogicDebugDir">
+            <form novalidate role="form" name="cqDirForm">
+                <div layout="column">
+                    <md-input-container >
+                        <label>Logic Debug Directory</label>
+                        <input ng-model="dgCtrl.cqDirectory" name="cqDirectory" size="50" ng-required="dirValidation(dgCtrl)" type="text">
+                        <md-icon><i class="material-icons">help_outline</i><md-tooltip style="height: auto;" md-direction="right">The directory which contains your AET and Trace.</br>Example: /afs/apd/u/arunj/sdkssh_xfvc_hb_mac/aet</md-tooltip></md-icon>
+                        <div ng-messages="cqDirForm.cqDirectory.$error">
+                          <div>{{ dgCtrl.dirValidationMsg }}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container >
+                        <label>Additional Search Directories</label>
+                        <input ng-model="dgCtrl.adSrchDirectory" name="adSrchDirectory" size="50" type="text">
+                        <md-icon><i class="material-icons">help_outline</i><md-tooltip style="height: auto;" md-direction="right">The colon seperated list of directories which contain your VHDL, IOlist.</br>Example: /afs/apd/u/arunj/vhdl:/afs/apd/u/arunj/iolist</md-tooltip></md-icon>
+                    </md-input-container>
+
+                    <div layout=row layout-align="end" flex>
+                        <md-button ng-click="cancel()" class="md-raised md-primary">Cancel</md-button>
+                    	<md-button ng-click="loadUseCase1(dgCtrl);dirValidation(dgCtrl);"  type="submit" class="md-raised md-primary">Submit</md-button>
+                    </div>
+				</div>
+			</form>
+        </div>
+        <div  ng-show="dgCtrl.showClockGatePower">
+             <form novalidate role="form" name="cqDirForm">
+                <div layout="column" layout-align="center center">
+                    <span>CLOCK GATING AND POWER..COMING SOON</span>
+                </div>
+            </form>
+        </div>
+		</div>
+	</md-dialog-content>
+    <md-dialog-content ng-show="param=='showPopNotes'" >
+        <div class="md-dialog-content" style="padding: 10px;">
+            <form role="form" name="cqDirForm">
+                <div layout="column">
+                    <md-input-container >
+                         <label>Scratch Pad</label>
+                        <textarea ng-model="dgCtrl.scratchPad" ng-blur="saveNotes(dgCtrl)" name="scratchPad" style="resize: both;overflow: auto;max-height: 75vh;max-width: 95vw;min-height: 10vh;min-width: 30vw;"></textarea>
+                    </md-input-container>
+                    <!-- <div layout=row layout-align="end" flex>
+                        <md-button ng-click="cancel()" class="md-raised md-primary">Cancel</md-button>
+                        <md-button ng-click="saveNotes(dgCtrl)"  type="submit" class="md-raised md-primary">Save</md-button>
+                    </div> -->
+                </div>
+            </form>
+        </div>
+    </md-dialog-content>
+</md-dialog>

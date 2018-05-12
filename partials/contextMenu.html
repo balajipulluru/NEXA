@@ -1,0 +1,24 @@
+<!-- Custom file to handle display of Context Menu Options -->
+
+<ul class="menu">
+    <li class="title">Actions:</li>
+    <li class="menu-item" ng-repeat="action in actions" ng-if="actions.length > 0" ng-click="readMessage(action.key,action.value)" >
+        <!-- <img src="../images/Target.png" /> -->
+        <a href="">{{action.key}}</a>
+    </li>
+<!--     <li> -->
+<!--         <img src="../images/bird30.png" /> -->
+<!--         <a href="#" ng-click="replyTo(from)">Reply to {{from}}</a> -->
+<!--     </li> -->
+<!--     <li ng-controller="DeleteController as dc"> -->
+<!--         <img src="../images/pie27.png" /> -->
+	<div ng-if="intfs.length > 0">
+    <li class="menu-item submenu">  <a href="">Move To..</a>
+	    <ul class="menu">
+		    <li class="menu-item" ng-repeat="intf in intfs" ng-click="moveToInterface(intf.key)">
+		    	<a href="">{{intf.value}}</a>
+		    </li>
+		</ul>
+	</li>
+	</div>
+</ul>

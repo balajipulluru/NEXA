@@ -1,0 +1,26 @@
+<div ng-show="!dashboard_enable">
+  <md-dialog-content ng-show="helper_loading">
+    <div style="position:fixed; top: 50%;left: 50%;width:30em;height:18em;margin-top: -9em; margin-left: -15em; border: 1px solid #ccc; background-color: #ffffff;" class="md-dialog-content" layout="column" layout-sm="column" layout-align="center center">
+      <p>NEXA Helper is being launched.<br>
+	This enables NEXA to have access to AFS workspaces.<br>
+	Please wait ...</p>
+      <md-progress-circular class="md-warn md-hue-3" md-diameter="50"></md-progress-circular>'
+    </div>
+  </md-dialog-content>
+</div>
+<div ng-if="dashboard_reload_error" style="position:fixed; top: 50%;left: 50%;width:30em;height:18em;margin-top: -9em; margin-left: -15em; border: 1px solid #ccc; background-color: #ffffff;" layout="column" layout-sm="column" layout-align="center center">
+  <p><b>Error: </b>Cannot reload the session..</p>
+</div>
+<div ng-if="dashboard_enable">
+  <adf-dashboard name="{{dashboard.name}}"
+  collapsible="{{collapsible}}"
+  maximizable="{{maximizable}}"
+  categories="{{categories}}"
+  structure="4-8"
+  adf-model="dashboard.model" />
+</div>
+<!-- <div class="footer">
+  <button class="btn btn-warning" ng-click="dashboard.delete(dashboard.name)">
+    <span class="glyphicon glyphicon-remove"></span> Delete
+  </button>
+</div> -->

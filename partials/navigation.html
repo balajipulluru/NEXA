@@ -1,0 +1,166 @@
+<!-- Navbar -->
+<nav class="navbar navbar-default navbar-fixed-top navbar-custom affix" style="z-index: 101;">
+  <div class="container" style="width: 100vw;">
+    <div class="navbar-header page-scroll">
+      <a class="navbar-brand nb1" href="#page-top"><span style="font-size: 30px;text-shadow: 1px 1px grey;"><img src=../icons/nn4.png>NEXA | Logic Workbench</span></a>
+    </div>
+    <div class="row navbar-right">
+      <!-- <md-content class="cust-header-content">{{nav.selectTabName}}</md-content> &nbsp;&nbsp; -->
+     
+    	<div class="gb_da gb_9c gb_R gb_g" id="gbwa">
+    	 	<md-button class="cust-icon-button" id="appIcon" aria-label="" style="right:36px;">
+        	<i class="material-icons cust-menu-icon md-36">apps</i>
+      	</md-button>
+	      <div class="gb_Qc invisible" id="appMenu">
+		    	<div class="gb_wb"></div>
+		    	<div class="gb_vb"></div>
+			    <div class="menu-style gb_ga gb_fa gb_ha gb_g" aria-hidden="false" role="region">
+			    	<ul class="gb_ia gb_ba" aria-dropeffect="move">
+			    		<li class="gb_Z" aria-grabbed="false">
+			    			<a class="gb_O" role="button" ng-click="nav.showToggleMenu();nav.popNotes();">
+			    				<span class="gb_2"><i class="material-icons md-50 clr-ftCyan">speaker_notes</i></span>
+			    				<span class="gb_3">ScratchPad</span>
+			    			</a>
+              </li>
+              <li class="gb_Z" aria-grabbed="false">
+                <a class="gb_O"  role="button" ng-click="nav.showToggleMenu();nav.stickyNotes();">
+                  <span class="gb_2"><img src="../icons/sn.jpg" style="height: 50px;" /></span>
+                  <span class="gb_3">StickyNotes</span>
+                </a>
+              </li>
+              <li class="gb_Z" aria-grabbed="false">
+			    			<a class="gb_O"  role="button" ng-click="nav.showToggleMenu();nav.showCQDebug('showCQ');">
+			    				<span class="gb_2"><i class="material-icons md-50 clr-ftOrange">settings_applications</i></span>
+			    				<span class="gb_3">Settings</span>
+			    			</a>
+              </li>
+			    		<li class="gb_Z" aria-grabbed="false">
+			    			<a class="gb_O"  role="button" ng-click="nav.showToggleMenu();nav.showUserPrefs();">
+			    				<span class="gb_2"><i class="material-icons md-50 clr-ftGreen">account_circle</i></span>
+			    				<span class="gb_3">Preferences</span>
+			    			</a>
+              </li>
+			    		<li class="gb_Z" aria-grabbed="false">
+                <a class="gb_O"  role="button" ng-click="nav.showToggleMenu();nav.create()">
+                  <span class="gb_2"><i class="material-icons md-50 clr-ftBrown">note_add</i></span>
+                  <span class="gb_3">New</span>
+			    			</a>
+			    		</li>
+						  <li class="gb_Z" aria-grabbed="false">
+			    			<a class="gb_O"  role="button" ng-click="nav.showDashboards();">
+			    				<span class="gb_2"><i class="material-icons md-50 clr-ftBlue">assignment</i></span>
+			    				<span class="gb_3">Dashboards</span>
+			    			</a>
+              </li>
+			    		<li class="gb_Z" aria-grabbed="false">
+                <a class="gb_O" href="https://ibm-systems.slack.com/messages/C9JCUPVL2" target="_blank" role="button" ng-click="nav.showToggleMenu();">
+                  <span class="gb_2"><img src="../icons/slack.jpg" style="height: 50px;" /></span>
+                  <span class="gb_3">SlackChannel</span>
+                </a>
+              </li>
+              <li class="gb_Z" aria-grabbed="false">
+                <a class="gb_O" href="https://github.ibm.com/EDA/LogicWorkBench/issues/new" target="_blank" role="button" ng-click="nav.showToggleMenu();">
+                  <span class="gb_2"><img src="../icons/git.jpg" style="height: 50px;" /></span>
+                  <span class="gb_3">GitIssues</span>
+                </a>
+              </li>
+              <li class="gb_Z" aria-grabbed="false">
+                <a class="gb_O"  role="button" ng-click="nav.showToggleMenu();nav.cloudConfig();">
+                  <span class="gb_2"><i class="material-icons md-50 clr-ftLtBlue">cloud</i></span>
+                  <span class="gb_3">NEXACloud</span>
+			    			</a>
+              </li>
+              <li class="gb_Z" aria-grabbed="false">
+                <a class="gb_O" href="https://ibm.box.com/v/nexa-mar2018" target="_blank" role="button" ng-click="nav.showToggleMenu();">
+                  <span class="gb_2"><i class="material-icons md-50 clr-ftRed">help_outline</i></span>
+                  <span class="gb_3">Help</span>
+                </a>
+              </li>
+			    	</ul>
+					</div>
+					<div ng-if=nav.showDashboard class="menu-style gb_ga gb_fa gb_ha gb_g" aria-hidden="false" role="region">
+						<ul ng-if="nav.items.length > 0" class="gb_ia gb_ca" aria-hidden="false">
+			    		<li ng-repeat="item in nav.items | orderBy: title" class="gb_Z" aria-grabbed="false">
+			    			<a class="gb_O"  role="button" ui-sref="session.interface({id:item.id})" ng-click="closeAllChildWindows();selectTabName(item.title);nav.showToggleMenu()">
+			    				<span class="gb_2"><i class="material-icons md-48 clr-nexaBlue">dashboard</i></span>
+			    				<span class="gb_3">{{item.title}}</span>
+			    			</a>
+              </li>
+            </ul>
+            <p ng-if="nav.items.length == 0"> No Dashboards Added </p>
+          </div>
+        </div>
+			</div>
+    </div>
+  </div>
+</nav>
+<div draggable resizsticky ng-mouseleave="saveStickyNotes(value.id);" on-resize="resize($evt, $ui, noteId)" ng-if="nav.showNotes && nav.notes.length > 0" id={{value.id}} ng-repeat="(key, value) in nav.notes" class="sticky" style="position: absolute; top:{{value.top}}; left: {{value.left}}; height: {{value.height}}; width: {{value.width}}; min-height: 200px; min-width: 200px;max-height: calc(100vh - {{value.top}})">
+  <div class="sticky-header" id="sticky-header">
+    <button title="New Note" class="add-sticky" ng-click="nav.addNote()">+</button>
+    <button title="Delete Note" class="close-sticky" ng-click="nav.deleteNote(value.id)">x</button>
+  </div>
+  <div contenteditable="true" class="sticky-content" ng-model="value.text" style="overflow-y:auto; height: calc({{value.height}} - 32px);max-height: calc(100vh - {{value.top}} - 32px)";> </div>
+</div>
+<!-- End Navbar -->
+            <!-- <li ng-controller='mainStateController as msc'>
+              <a style="cursor: pointer;" ng-click="msc.newWindowDialog($event)">Create Child Browser Tab</a>
+            </li> -->
+      <!-- <li>
+        <span flex></span>
+        <a href="#" onclick="signOut();">Sign out</a>
+      </li> -->
+         <!--  </ul>
+    </div>
+  </div>
+</nav>
+-->
+<div ui-view></div>
+
+<script type="text/javascript">
+
+// Hide Header on on scroll down
+var didScroll;
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('nav').outerHeight();
+
+// $(window).scroll(function(event){
+//     didScroll = true;
+// });
+
+setInterval(function() {
+    if (didScroll) {
+        hasScrolled();
+        didScroll = false;
+    }
+}, 250);
+
+function hasScrolled() {
+    var st = $(this).scrollTop();
+
+    // Make sure they scroll more than delta
+    if(Math.abs(lastScrollTop - st) <= delta)
+        return;
+
+    // If they scrolled down and are past the navbar, add class .nav-up.
+    // This is necessary so you never see what is "behind" the navbar.
+    if (st > lastScrollTop && st > navbarHeight){
+        // Scroll Down
+        $('nav').addClass('nav-up');
+    } else {
+        // Scroll Up
+        if(st + $(window).height() < $(document).height()) {
+            $('nav').removeClass('nav-up');
+        }
+    }
+
+    lastScrollTop = st;
+}
+
+</script>
+
+<style type="text/css">
+  .nav-up {
+    top:-80px;
+}
+</style>

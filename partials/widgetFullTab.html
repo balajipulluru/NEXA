@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!--*
+ The MIT License
+
+ Copyright (c) 2014, Sebastian Sdorra
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="dashboard sample app">
+    <meta name="author" content="Sebastian Sdorra">
+
+    <!-- build:css css/sample.min.css -->
+    <!-- Bootstrap core CSS -->
+    <!--link href="../components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"-->
+
+    <link type="text/css" href="../styles/bootstrap.min.css" rel="stylesheet" />
+    <link type="text/css" href="../styles/material-kit.css" rel="stylesheet"/>
+    <!-- dashboard style -->
+    <link type="text/css" href="../components/angular-dashboard-framework/dist/angular-dashboard-framework.min.css" rel="stylesheet">
+    <!--link href="../components/adf-widget-clock/dist/adf-widget-clock.min.css" rel="stylesheet">
+    <link href="../components/adf-widget-iframe/dist/adf-widget-iframe.min.css" rel="stylesheet"-->
+    <link type="text/css" href="../styles/app.css" rel="stylesheet">
+    <link type="text/css" href="../styles/contextMenu.css" rel="stylesheet">
+    <!-- endbuild -->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+      <script>
+        document.createElement('adf-dashboard');
+        document.createElement('adf-widget');
+        document.createElement('adf-widget-content');
+      </script>
+    <![endif]-->
+  <style type="text/css">
+  /*.ace_editor, .ace_editor div {
+    height : 600px;
+    font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace !important;
+    font-variant-ligatures: no-common-ligatures;
+  }*/
+  .ace_editor {
+    height : 600px;
+    font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace !important;
+    font-variant-ligatures: no-common-ligatures;
+  }
+      /* fixe for modal-backdrop*/
+      .modal-backdrop {
+        bottom: 0;
+        /* some fixes appear to use this, too: */
+        position: fixed;
+      }
+	.panel-default>.panel-heading {
+		background-color:#f3f2f2;
+	};
+    </style>
+	<!-- components -->
+    <script type="text/javascript" src="../components/Sortable/Sortable.min.js"></script>
+    <script type="text/javascript" src="../components/angular/angular.js"></script>
+    <script type="text/javascript" src="../components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="../components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script type="text/javascript" src="../components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <!-- <script type="text/javascript" src="../scripts/angular-dashboard-framework.js"></script> -->
+    <script type="text/javascript" src="../components/angular-dashboard-framework/dist/angular-dashboard-framework.js"></script>
+
+	 <!-- Core AngularJS -->
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://edautil1.pok.ibm.com/ng/angular.js"></script>
+    <script src="../components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="http://edautil1.pok.ibm.com/ng/angular-animate.min.js"></script>
+    <script src="http://edautil1.pok.ibm.com/ng/angular-sanitize.min.js"></script>
+    <script src="http://edautil1.pok.ibm.com/ng/angular-aria.min.js"></script>
+    <script src="http://edautil1.pok.ibm.com/ng/angular-messages.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="http://edautil1.pok.ibm.com/ng/angular-material.min.css">
+    <script src="http://edautil1.pok.ibm.com/ng/angular-material.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="http://edautil1.pok.ibm.com/ng/material-icons.css" type="text/css" media="screen" />
+    <script src="../scripts/bootstrap.min.js" type="text/javascript"></script>
+
+    <!-- scripts -->
+    <script type="text/javascript" src="../scripts/app.js"></script>
+    <script type="text/javascript" src="../scripts/childTabCtrl.js"></script>
+    <script type="text/javascript" src="../scripts/wbManagerIntegrationServices.js"></script>
+
+    <!-- structures -->
+    <script type="text/javascript" src="../components/adf-structures-base/dist/adf-structures-base.min.js"></script>
+
+	<!--hierarchy browser widget-->
+	<!-- <script type="text/javascript" src="../widgets/Hierarchy_Browser/src/Hierarchy_Browser.js"></script> -->
+	<script type="text/javascript" src="../utils/js/websocket.js"></script>
+	<!-- <script type="text/javascript" src="../widgets/Hierarchy_Browser/src/userid.js"></script> -->
+    <link rel="stylesheet" href="http://edautil1.pok.ibm.com/ng/angular-material.min.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="http://edautil1.pok.ibm.com/ng/material-icons.css" type="text/css" media="screen" />
+    <script src="http://edautil1.pok.ibm.com/ng/angular.min.js" type="text/javascript"></script>
+    <script src="http://edautil1.pok.ibm.com/ng/angular-material.min.js" type="text/javascript"></script>
+    <script src="http://edautil1.pok.ibm.com/ng/angular-animate.min.js" type="text/javascript"></script>
+    <script src="http://edautil1.pok.ibm.com/ng/angular-aria.min.js" type="text/javascript"></script>
+    <script src="http://edautil1.pok.ibm.com/ng/angular-resource.min.js"></script>
+
+    <script src="../components/socket.io-client/dist/socket.io.js"></script>
+    <script src="../components/angular-socket-io/socket.min.js"></script>    
+    <!--helper prefs module-->
+    <script src="http://edaa.pok.ibm.com/prod/findhelper/js/helper-services.js"></script>
+    <script src="../scripts/eda-helperprefs.js"></script>
+
+    <!--custom directive decorators and context menu-->
+    <script type="text/javascript" src="../scripts/adfCustom.js"></script>
+    <script type="text/javascript" src="../scripts/contextMenuCustom.js"></script>
+    <script type="text/javascript" src="../scripts/utils.js"></script>
+    <script type="text/javascript" src="../scripts/ng-contextmenu.js"></script>
+    <script type="text/javascript" src="../scripts/config.js"></script>
+    <script src="https://unpkg.com/ag-grid@16.0.0/dist/ag-grid.min.js"></script>
+
+
+	<!--Navigator-->
+	<!-- <script type="text/javascript" src="../widgets/navigator/src/navigator.js"></script> -->
+
+    <!--Mantis UI-->
+    <script type="text/javascript" src="../widgets/mantis_FE/src/mantis_FE.js"></script>
+
+	<!--AET Viewer-->
+	<script type="text/javascript" src="../widgets/AET_viewer/src/AET_viewer.js"></script>
+
+	<!-- Converage Tracker -->
+	<script type="text/javascript" src="../widgets/coverage_tracker/src/coverage_tracker.js"></script>
+
+	<!-- Trace File -->
+	<script type="text/javascript" src="../widgets/trace_file/src/trace_file.js"></script>
+	<script type="text/javascript" src="../utils/js/hyperAce.js"></script>
+	<link rel="stylesheet" type="text/css" href="../utils/styles/hyperAce.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-dropdown-multiselect/1.11.8/angularjs-dropdown-multiselect.min.js"></script>
+
+	<!-- Nexa Csv Viewer-->
+	<script type="text/javascript" src="../widgets/nexa_csv_viewer/src/nexa_csv_viewer.js"></script>
+
+	<!-- Timing Report-->
+	<!-- <script type="text/javascript" src="../widgets/timing_report/src/timing_report.js"></script> -->
+
+	<!--Nexa Source Browser-->
+	<script type="text/javascript" src="../widgets/NexaSourceBrowser/src/NexaSourceBrowser.js"></script>
+    <script type="text/javascript" src="../components/underscore/underscore-min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../widgets/NexaSourceBrowser/src/NexaSourceBrowser.css">
+	<script type="text/javascript" src="../components/ace-builds/src-min-noconflict/ace.js"></script>
+	<script type="text/javascript" src="../widgets/NexaSourceBrowser/src/ui-ace.js"></script>
+
+   <!--timing table widget-->
+	<!-- <script type="text/javascript" src="widgets/timing_table/src/timing_table.js"></script> -->
+
+
+	<!--timing table widget-->
+	<!-- <script type="text/javascript" src="../widgets/timing_table/src/timing_table.js"></script> -->
+
+	<!-- nvd d3 framework-->
+    <!-- <link rel="stylesheet" href="../components/nvd3/build/nv.d3.min.css" />
+    <script src="../components/d3/d3.min.js" charset="utf-8"></script>
+    <script src="../components/nvd3/build/nv.d3.min.js"></script>
+    <script src="../components/angular-nvd3/dist/angular-nvd3.min.js"></script>
+    <script src="../components/angular-nvd3/dist/angular-nvd3.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+    <script src="https://rawgit.com/krispo/angular-nvd3/v1.0.4/dist/angular-nvd3.js"></script>
+    <script src="https://cdn.rawgit.com/novus/nvd3/master/build/nv.d3.js"></script>
+
+	<!-- ui-grid framework -->
+    <script src="../components/angular-ui-grid/ui-grid.min.js"></script>
+    <link rel="styleSheet" type="text/css" href="../components/angular-ui-grid/ui-grid.min.css" />
+
+	<!--timing services-->
+	<!-- <script src="../widgets/timing_table/src/timingServices.js"></script> -->
+
+	<!--local storage module -->
+	<script src="../components/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="https://unpkg.com/ag-grid@16.0.0/dist/ag-grid.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+    <script src="https://rawgit.com/krispo/angular-nvd3/v1.0.4/dist/angular-nvd3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-dropdown-multiselect/1.11.8/angularjs-dropdown-multiselect.min.js"></script>
+    <script src="https://cdn.rawgit.com/novus/nvd3/master/build/nv.d3.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../utils/styles/dropdown.css">
+  </head>
+
+  <body style="background-color:#fff" ng-app="childTabApp" ng-controller="childTabCtrl">
+    <div ng-if="widgetDataLoaded" adf-id={{definition.wid}} adf-widget-type={{definition.type}} ng-class="$scope.parentScope.widgetClasses(widget, definition)" class=widget>
+        <div class="panel-heading clearfix" ng-if="!widget.frameless || editMode"> 
+            <div ng-include src=definition.titleTemplateUrl></div> 
+        </div> 
+        <div ng-class="{'panel-body':!widget.frameless || editMode}" uib-collapse=widgetState.isCollapsed> 
+            <adf-widget-content model=definition content=widget> </adf-widget-content>
+        </div> 
+    </div>
+  </body>
+</html>

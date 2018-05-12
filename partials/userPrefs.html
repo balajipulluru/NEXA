@@ -1,0 +1,26 @@
+<md-dialog aria-label="NEXA User Preferences">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <img src="../icons/nn4.png" style="height: 40px;" />
+            <h2>NEXA User Preferences</h2>
+            <span flex></span>
+            <a style="cursor: pointer;" ng-click="cancel()"><i class="material-icons">close</i></a>    
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <form role="form" name="userPrefs">
+                <div layout="column">
+                    <md-switch ng-model="usrPrefCtrl.toggleHead" class="md-primary" name="toggleHead" aria-label="Switch 1">
+                            Hide Widget Header
+                    </md-switch>
+                    <div layout=row layout-align="end" flex>
+                        <md-button ng-click="cancel()" class="md-raised md-primary">Cancel</md-button>
+                    	<md-button ng-click="saveUsrPrefs(usrPrefCtrl)"  type="submit" class="md-raised md-primary">OK</md-button>
+                    </div>
+				</div>
+			</form>
+		</div>
+	</md-dialog-content>
+</md-dialog>

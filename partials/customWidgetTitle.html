@@ -1,0 +1,62 @@
+
+  <div style="display:flex; flex-direction:row; background-color:#00B4A0; min-width: 100%;color: white;justify-content: space-between;">
+  	  	<div class="md-title" style="display:flex;flex-direction:row;position: relative;top:10px;left:10px;"><span><img src="../icons/nn_widget_4.png"></span><span class="truncateTitle"> &nbsp;&nbsp;{{definition.title}}</span></div>
+  	<div style="display:flex;flex-direction:row;">
+   <!--  <span class="md-title" style="position: relative;top:10px;left:20px;"><img src="../icons/nn_widget_4.png">&nbsp;&nbsp;{{definition.title}}</span>
+ <span class=pull-right> -->
+		<a title="Add New Instance" ng-click=addNewAppInstance() style="position: relative;top:10px;">
+			<i class="glyphicon glyphicon-plus" style="color: white";></i>
+			<div class="md-ripple-container" style=""></div>
+		</a> 	
+		<a title="Collapse Widget" ng-show="options.collapsible && !widgetState.isCollapsed" style="position: relative;top:10px;padding-left: 15px;" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed">
+			<i class="glyphicon glyphicon-chevron-up" style="color: white";></i>
+			<div class="md-ripple-container" style=""></div>
+		</a>
+		<a title="Expand Widget" ng-show="options.collapsible && widgetState.isCollapsed" style="position: relative;top:10px;padding-left: 15px;" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed">
+			<i class="glyphicon glyphicon-chevron-down" style="color: white";></i>
+			<div class="md-ripple-container" style=""></div>
+		</a>
+		<a title="Open on New Tab" ng-click=openNewTab() style="position: relative;top:10px;padding-left: 15px;">
+			<i class="glyphicon glyphicon-export" style="color: white";></i>
+			<div class="md-ripple-container" style=""></div>
+		</a>
+		<a title="Fullscreen Widget" ng-click=openFullScreen() ng-show=options.maximizable style="position: relative;top:10px;padding-left: 15px;">
+			<i class="glyphicon glyphicon-fullscreen" style="color: white";></i>
+			<div class="md-ripple-container" style=""></div>
+		</a>
+	<ul class="nav nav-sm navbar-tool pull-right" ng-hide="$state.current.data.child" aria-hidden="false">
+      <li class="dropdown">
+        <a title="Settings" md-ink-ripple="" data-toggle="dropdown" aria-expanded="false">
+          <i class="glyphicon glyphicon-option-vertical" style="color: white";></i>
+		        	<div class="md-ripple-container" style=""></div>
+		        </a>
+        <ul class="dropdown-menu dropdown-menu-scale pull-right pull-up text-color">
+		<li>
+			<a href title="Reload Widget Content" ng-if=widget.reload ng-click=reload()>
+				<i class="glyphicon glyphicon-refresh"></i>
+						Reload Widget Content
+			</a>
+		</li>
+<!-- 		<li>
+			<a href title="change widget location" class=adf-move onmousedown="customToggleEdit()" onmouseup="customToggleEdit()">
+				<i class="glyphicon glyphicon-move"></i>
+					Change Widget Location
+			</a>
+		</li> -->
+		<li>
+			<a href title="Edit Widget Configuration" ng-click=widgetConfig() >
+		<i class="glyphicon glyphicon-cog"></i>
+				Widget Configuration
+	</a>
+		</li>
+		<li>
+			<a href title="Remove Widget" ng-click=removeWidget() >
+		<i class="glyphicon glyphicon-remove"></i>
+						Delete Widget
+	</a>
+		</li>
+    </ul>
+  </li>
+</ul>
+ </div>
+</div>	  

@@ -1,0 +1,137 @@
+<div id="ui_ace_editor" class="column">
+<!--md-content>
+<!--md-button ng-show='ace_editor.vhdl_path!=""' class="md-raised md-warn"
+                     ng-click="ace_editor.add_to_wave()">add_to_wave</md-button>  <span>{{ace_editor.add_to_wave_result}}</span-->
+<!--md-toolbar class="md-hue-2">
+    <div class="md-toolbar-tools"-->
+    <!-- Code modified to properly align ace-Header icons in resized view -->
+	 <!-- <section layout="row" class="icon_row" layout-sm="column" layout-align="left center" layout-wrap> -->
+	 <section style="display: -webkit-box;-webkit-box-align: start;" class="icon_row" layout-sm="column" layout-align="left center" layout-wrap>
+		<md-button class="md-icon-button"  data-toggle="tooltip" title="Display Info" data-placement="bottom" ng-class="{'highlight_button' : config.display_info }"  aria-label="info" style="{height:5px;color:blue;}" ng-click="config.display_info=!config.display_info" >
+ 			<!-- <md-tooltip>Display Info</md-tooltip> -->
+ 			<md-icon md-svg-icon="icons/info.svg"></md-icon>
+ 		</md-button>
+		<md-button data-toggle="tooltip" title="File Browser" data-placement="bottom" class="md-icon-button" ng-class="{'highlight_button' : ace_editor.file_browser }" aria-label="refresh" style="height:5px;" ng-click="ace_editor.showDirSelection()" >
+		  <!-- <md-tooltip>Refresh Annotated Values</md-tooltip> -->
+          <md-icon md-svg-icon="icons/fileSelector.svg" style="color:black;"></md-icon>
+    </md-button>
+		<md-button class="md-icon-button" data-toggle="tooltip" title="Search" data-placement="bottom" aria-label="info" style="height:5px;color" ng-class="{'highlight_button' : config.search_results }" ng-click="ace_editor.bring_up_search()" >
+ 			<!-- <md-tooltip>Search</md-tooltip> -->
+ 			<md-icon md-svg-icon="icons/search.svg"></md-icon>
+ 		</md-button>
+ 			<md-button class="md-icon-button" data-toggle="tooltip" title="Hierarchy Info" data-placement="bottom" ng-show="ace_editor.mantis_websocket_enabled === true;" ng-class="{'highlight_button' : ace_editor.showHierarchyInfo }" aria-label="info" style="{height:5px;color:blue;}" ng-click="ace_editor.showConfirm($event)" >
+ 			<!-- <md-tooltip>Hierarchy Info</md-tooltip> -->
+ 		<md-icon md-svg-icon="icons/description.svg"></md-icon>
+ 		</md-button>
+		<md-button class="md-icon-button" data-toggle="tooltip" ng-show="ace_editor.mantis_websocket_enabled === true;"  title="Add To Wave" data-placement="bottom" aria-label="Add to Wave" style="{height:5px;color:blue;}" ng-click="ace_editor.add_to_wave()" >
+		  <!-- <md-tooltip>Add To Wave</md-tooltip> -->
+          <md-icon md-svg-icon="widgets/NexaSourceBrowser/src/icons/add_to_wave.svg"></md-icon>
+        </md-button>
+		<md-button class="md-icon-button" data-toggle="tooltip" ng-show="ace_editor.mantis_websocket_enabled === true;" ng-class="{'highlight_button' : config.showAddWavePrime }" title="Add To Wave Prime" data-placement="bottom" aria-label="Add to Wave Prime" style="{height:5px;color:blue;}" ng-click="ace_editor.add_to_wave_Prime()">
+		  <!-- <md-tooltip>Add To Wave</md-tooltip> -->
+          <md-icon md-svg-icon="widgets/NexaSourceBrowser/src/icons/add_to_Wave_Prime.svg" style="color:black;"></md-icon>
+        </md-button>
+		<md-button data-toggle="tooltip" title="Enable Annotation" data-placement="bottom" ng-show="ace_editor.mantis_websocket_enabled === true;" ng-class="{'highlight_button' : config.enable_annotation }" class="md-icon-button" aria-label="enable_annotation" style="{height:5px;color:blue;}" ng-model="config.enable_annotation" ng-click="ace_editor.toggle_annotation()">
+		  <!-- <md-tooltip>Enable Annotation</md-tooltip> -->
+          <md-icon md-svg-icon="widgets/NexaSourceBrowser/src/icons/enable_annotate.svg"></md-icon>
+        </md-button>
+		<md-button data-toggle="tooltip" title="Refresh Annotated Values" data-placement="bottom" ng-show="ace_editor.mantis_websocket_enabled === true;" class="md-icon-button" ng-show="config.enable_annotation" aria-label="refresh" style="{height:5px;color:blue;}" ng-click="ace_editor.refresh_annotation()" >
+		  <!-- <md-tooltip>Refresh Annotated Values</md-tooltip> -->
+          <md-icon md-svg-icon="widgets/NexaSourceBrowser/src/icons/refresh.svg"></md-icon>
+        </md-button>
+		<span>{{config.add_to_wave_result}}</span>
+	</section>
+	<div ng-show="config.display_info && ace_editor.mantis_websocket_enabled" md-theme="menu_ui_ace" style="margin-top:0;margin-bottom:10px; border-radius: 3px;hieght:10px;background-color:#d3d3d3">
+	<p style="word-wrap: break-word;"><b>Vhdl:</b> {{config.vhdl_path}}</p>
+	</div>
+	<div ng-show="config.enable_annotation" md-theme="menu_ui_ace" style="margin-top:0;margin-bottom:10px; border-radius: 3px;hieght:10px">
+	<md-slider-container >
+	  <md-slider ng-change="ace_editor.slider_changed()" ng-model="config.current_cycle" aria-label="cycle_select" min="{{config.mts_lwb_min_cycle}}" id="mantis_cycle_slider" max="{{config.mts_lwb_max_cycle}}" flex="80" md-discrete></md-slider>
+      <md-input-container style="max-width:100px">
+        <input type="number" ng-change="ace_editor.slider_changed()" ng-model="config.current_cycle" aria-label="green" aria-controls="mantis_cycle_slider">
+      </md-input-container>
+	</md-slider-container>
+</div>
+<div ng-show="config.showAddWavePrime"  style="background-color:#d3d3d3">
+	<div layout="column" style="background-color:#fefefe">
+		<section>
+			<md-input-container style="width:80%" layout-nowrap>
+				<label>Select a Signal to Add to Wave</label>
+				<input  ng-model="ace_editor.signal_name_Prime" name="signal_name_Prime" size="47" type="text" ng-keyup="$event.keyCode == 13 ? ace_editor.add_to_wave(ace_editor.signal_name_Prime) : null">
+				<!-- <div ng-messages="showDirSelect.cqDirectory.$error">
+					<div>{{ ace_editor.dirValidationMsg }}</div>
+				</div> -->
+			</md-input-container>
+			<md-button class="md-icon-button" title="Add to Wave" data-placement="bottom"  aria-label="info" style="background-color: #f0f0f0;vertical-align: super;" ng-click="ace_editor.add_to_wave(ace_editor.signal_name_Prime)" ng-show="!ace_editor.files">
+				<i class="material-icons">keyboard_return</i>
+			</md-button>
+		</section>
+	</div>
+</div>
+<div ng-show="ace_editor.showHierarchyInfo && ace_editor.inNewTab"  style="background-color:#d3d3d3">
+<div layout="column" style="background-color:#fefefe">
+	<section style="margin-left:10px">
+		<md-input-container layout-nowrap>
+			<label>Set the hierarchy for the vhdl chosen</label>
+			<input ng-model="ace_editor.top_hier" name="Hierarchy" size="60" type="text" ng-keyup="$event.keyCode == 13 ? ace_editor.saveHierarchyInfo() : null">
+		</md-input-container>
+		<span>
+			<md-button class="md-raised md-warn" title="Cancel" data-placement="bottom" style="height:5px;color : rgb(100, 100, 100);background-color: rgba(230, 230, 229, 0.96);" ng-click="ace_editor.showHierarchyInfo=false;" >	Cancel </md-button>
+			<md-button class="md-raised md-primary" title="OK" data-placement="bottom"  style="height:5px;" ng-click="ace_editor.saveHierarchyInfo()" >	OK </md-button>
+		</span>
+	</section>
+</div>
+</div>
+
+<div ng-show="ace_editor.file_browser && ace_editor.inNewTab"  style="background-color:#d3d3d3">
+<div layout="column" style="background-color:#fefefe">
+	<section>
+		<md-input-container style="margin-top: 32px;" layout-nowrap>
+			<label>File Directory</label>
+			<input ng-model="config.cqDirectory" name="cqDirectory" size="60" type="text" ng-blur="ace_editor.getfiles()" ng-keyup="$event.keyCode == 13 ? ace_editor.getfiles() : null">
+			<md-icon><i class="material-icons">help_outline</i><md-tooltip style="height: auto;" md-direction="right">The directory which contains your VHDL.</br>Example: /afs/apd/u/arunj/sdkssh_xfvc_hb_mac/vhdl</md-tooltip></md-icon>
+			<div ng-messages="showDirSelect.cqDirectory.$error">
+				<div>{{ ace_editor.dirValidationMsg }}</div>
+			</div>
+		</md-input-container>
+		<md-input-container style="margin-top: 32px;" layout-nowrap>
+			<label>Filter*</label>
+			<input ng-model="config.file_filter" name="Filter" size="30" type="text" ng-blur="ace_editor.getfiles()" ng-keyup="$event.keyCode == 13 ? ace_editor.getfiles() : null">
+		</md-input-container>
+			<md-button class="md-icon-button" title="Filter files" data-placement="bottom"  aria-label="info" style="background-color: #f0f0f0;vertical-align: super;" ng-click="ace_editor.getfiles()" ng-show="!ace_editor.files">
+				<i class="material-icons">keyboard_return</i>
+			</md-button>
+		<md-input-container class="md-input-has-value" layout-nowrap style="vertical-align:super;margin:0px;" ng-if="ace_editor.files" >
+			<label>Files in the Directory:</label>
+			<div ng-dropdown-multiselect="" options="ace_editor.dropdown_files" selected-model="ace_editor.dropdown_selected_file" extra-settings="ace_editor.dropdown_extra_settings" events="{onItemSelect:ace_editor.dropdown_on_select,onItemDeselect:ace_editor.dropdown_on_deselect}"></div>
+		</md-input-container>
+		<span style="float:right;margin:32px">
+			<md-button ng-if="ace_editor.files" class="md-raised md-warn" title="Cancel Reload" data-placement="bottom" style="height:5px;color : rgb(100, 100, 100);background-color: rgba(230, 230, 229, 0.96);" ng-click="ace_editor.file_browser=!ace_editor.file_browser;closeDialog()" >	Cancel </md-button>
+			<md-button ng-if="ace_editor.files" class="md-raised md-primary" title="Reload file" data-placement="bottom"  style="height:5px;" ng-click="ace_editor.reload_file(ace_editor.selected_file);closeDialog();" >	Open </md-button>
+		</span>
+	</section>
+</div>
+</div>
+<div ng-show="!ace_editor.file_loaded && !ace_editor.file_load_error && !ace_editor.showFileSelectMsg" layout="row" layout-sm="column" layout-align="space-around">
+		 <md-progress-circular class="md-warn md-hue-3" md-diameter="40"></md-progress-circular>
+</div>
+<div ng-show="ace_editor.file_load_error" layout="row" layout-sm="column">
+		 <p align="center"><br><br>Could not load the specified file<br><br></p>
+</div>
+  <div ng-show="ace_editor.showFileSelectMsg" layout="row" layout-sm="column">
+       <p align="center"><br><br>Select a File to Load into Source Browser<br><br></p>
+  </div>
+	<!--/div>
+</md-toolbar-->
+<!--md-content-->
+<!-- Added class "appDiv" to use it to set resize widget dimensions on the div -->
+<!-- use   useWrapMode : true, to enable wrap mode -->
+  <div class="appDiv" ng-show="ace_editor.file_loaded" style="font-size:15px" ui-ace="{
+  theme:'dreamweaver',
+  mode: 'text',
+  firstLineNumber: 1,
+  onLoad: aceLoaded,
+  onChange: aceChanged
+}" ></div>
+
+</div>

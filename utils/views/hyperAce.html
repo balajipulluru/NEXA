@@ -1,0 +1,11 @@
+<div class="hyper_ace" style="word-wrap: break-word;">
+  <h4><b>Search Results: </b>{{hyperace.results}}</h4>
+    <div ng-show="hyperace.results>0" id="results">
+    <!-- <div class="hyperace-session" ng-repeat="sessionData in hyperace.ranges">{{sessionData.index+1}} -->
+    <div class="hyperace-session" ng-repeat="sessionData in hyperace.ranges">
+        <a href='javascript:void(0)' ng-repeat="data in sessionData" ng-click=hyperace._linkSelected($index,$parent.$index)>
+           <b>({{data.range.start.row+1}},{{data.range.start.col+1}})</b> {{data.data.pre}}<span class="hyperace-match">{{data.data.match}}</span>{{data.data.post}}
+        <br/></a>
+    </div>
+    </div>
+</div>

@@ -1,0 +1,150 @@
+<div class="column">
+  <!-- Code modified to properly align ace-Header icons in resized view -->
+  <!-- <section layout="row" class="icon_row" layout-sm="column" layout-align="left center" layout-wrap> -->
+  <section style="display: -webkit-box;-webkit-box-align: start;" class="icon_row" layout-sm="column" layout-align="left center" layout-wrap style>
+   <md-button class="md-icon-button" data-toggle="tooltip" title="Display Info" data-placement="bottom" ng-class="{'highlight_button' : config.display_info }"  aria-label="info"  ng-click="config.display_info=!config.display_info" >
+     <!-- <md-tooltip>Display Info</md-tooltip> -->
+     <md-icon md-svg-icon="../icons/info.svg"></md-icon>
+   </md-button>
+   <md-button data-toggle="tooltip" title="File Browser" data-placement="bottom" class="md-icon-button" ng-class="{'highlight_button' : trace_file.file_browser }" aria-label="refresh" style="height:5px;" ng-click="trace_file.showDirSelection()">
+     <!-- <md-tooltip>Refresh Annotated Values</md-tooltip> -->
+         <md-icon md-svg-icon="../icons/fileSelector.svg"></md-icon>
+   </md-button>
+   <md-button class="md-icon-button" data-toggle="tooltip" title="Search" data-placement="bottom" aria-label="info"  ng-class="{'highlight_button' : config.search_results }"ng-click="trace_file.bring_up_search()" >
+     <!-- <md-tooltip>Search</md-tooltip> -->
+     <md-icon md-svg-icon="../icons/search.svg"></md-icon>
+   </md-button>
+   <!-- <md-button ng-show="trace_file.file_loaded" class="md-icon-button" data-toggle="tooltip" title="Filter Data" data-placement="bottom" aria-label="info"  ng-class="{'highlight_button' : trace_file.data_filter_enabled }" ng-click="trace_file.data_filter_enabled=!trace_file.data_filter_enabled" > -->
+     <!-- <md-tooltip>Search</md-tooltip> -->
+     <!-- <md-icon md-svg-icon="../icons/search.svg"></md-icon> -->
+     <!-- <i class="material-icons">filter_list</i> -->
+   <!-- </md-button> -->
+   <md-button  class="md-icon-button"  data-toggle="tooltip" title="Synchronize Cycle" data-placement="bottom" ng-show="trace_file.mantis_websocket_enabled === true;" aria-label="Synchronize cycle" ng-click="trace_file.synchronize_cycle()" >
+     <!-- <md-tooltip>Synchronize Cycle</md-tooltip> -->
+     <md-icon md-svg-icon="../icons/synchronize_cycle.svg"></md-icon>
+   </md-button>
+
+   <md-button class="md-icon-button" data-toggle="tooltip"  ng-class="{'highlight_button' : trace_file.execute_grep_command }" title="Execute Grep" data-placement="bottom" aria-label="Execute Grep" style="{height:5px;color:blue;}" ng-click="trace_file.execute_grep_view()">
+     <!-- <md-tooltip>Add To Wave</md-tooltip> -->
+         <span style="font-size:18px">&#71;</span>
+       </md-button>
+
+       <md-button class="md-icon-button" data-toggle="tooltip" title="Set RTX Path" data-placement="bottom"  ng-class="{'highlight_button' : trace_file.showRTXPathInfo }" aria-label="info" style="{height:5px;color:blue;}" ng-click="trace_file.showConfirm($event)" >
+       <!-- <md-tooltip>Hierarchy Info</md-tooltip> -->
+       <md-icon md-svg-icon="../icons/description.svg"></md-icon>
+       </md-button>
+       <md-button class="md-icon-button" data-toggle="tooltip" title="Open File" data-placement="bottom"  ng-class="{'highlight_button' : !trace_file.filelaunch_info }" aria-label="info" style="{height:5px;color:blue;}" ng-click="trace_file.openFile()" >
+       <!-- <md-tooltip>Hierarchy Info</md-tooltip> -->
+       <md-icon md-svg-icon="../icons/openFile.svg"></md-icon>
+       </md-button>
+  </section>
+  <!-- <div ng-show="trace_file.data_filter_enabled" style="margin-top:0;margin-bottom:10px; border-radius: 3px;hieght:10px; border-color: grey;">
+   <md-input-container>
+     <label>Data Filter*</label>
+     <input ng-model="config.data_filter" name="Data Filter" type="text" ng-keyup="$event.keyCode == 13 ? trace_file.data_filter() : null"> -->
+     <!-- <md-checkbox ng-model="config.data_filter_options.caseSensitive" aria-label="caseSensitive">Case Sensitive</md-checkbox>
+     <md-checkbox ng-model="config.data_filter_options.RegExp_enable" aria-label="RegExp_enable">Regexp</md-checkbox>
+     <!-- <md-button class="md-raised md-primary" title="Data filer" data-placement="bottom"  style="height:5px;" ng-click="trace_file.reset_data_filter()" > Reset </md-button> -->
+     <!-- <md-button class="md-raised md-primary" title="Data filer" data-placement="bottom"  style="height:5px;" ng-click="trace_file.data_filter()" > OK </md-button>
+   </md-input-container>
+ </div> -->
+ <div ng-show="trace_file.execute_grep_command"  style="background-color:#d3d3d3">
+ 	<div layout="column" style="background-color:#fefefe">
+ 		<section>
+ 			<md-input-container style="width:80%" layout-nowrap>
+ 				<label id = "grep_prompt">Grep expression Eg:grep pattern $file</label>
+ 				<input  ng-model="config.grep_command" name="grep_command" size="47" type="text" ng-keyup="$event.keyCode == 13 ? trace_file.execute_grep(config.grep_command) : null">
+      </md-input-container>
+ 			<md-button class="md-icon-button" title="Execute" data-placement="bottom"  aria-label="info" style="background-color: #f0f0f0;vertical-align: super;" ng-click="trace_file.execute_grep(config.grep_command)">
+        <i class="material-icons">keyboard_return</i>
+      </md-button>
+    </section>
+ 	</div>
+ </div>
+  <div ng-show="config.display_info" md-theme="menu_ui_ace" style="margin-top:0;margin-bottom:10px; border-radius: 3px;hieght:10px;background-color:#d3d3d3">
+	<p style="word-wrap: break-word;"><b>File:</b> {{config.trace_file}}</p>
+	</div>
+  <div ng-show="trace_file.filelaunch_info && trace_file.errorDisplay" md-theme="menu_ui_ace" style="margin-top:0;margin-bottom:10px; border-radius: 3px;hieght:10px;color:red;background-color:#d3d3d3">
+  <p style="word-wrap: break-word;">{{trace_file.launchInfo}}</p>
+  </div>
+	<div ng-show="trace_file.showRTXPathInfo && trace_file.inNewTab"  style="background-color:#d3d3d3">
+	<div layout="column" style="background-color:#fefefe;">
+		<section style="margin-left:10px">
+			<md-input-container layout-nowrap>
+				<label>set the RTX path</label>
+				<input ng-model="trace_file.RTXPath" name="RTX Path" size="60" type="text" ng-keyup="$event.keyCode == 13 ? trace_file.save_RTXPath() : null">
+			</md-input-container>
+			<span>
+				<md-button class="md-raised md-warn" title="Cancel" data-placement="bottom" style="height:5px;color : rgb(100, 100, 100);background-color: rgba(230, 230, 229, 0.96);" ng-click="trace_file.showRTXPathInfo=false;" >	Cancel </md-button>
+				<md-button class="md-raised md-primary" title="OK" data-placement="bottom"  style="height:5px;" ng-click="trace_file.save_RTXPath()" >	OK </md-button>
+			</span>
+		</section>
+	</div>
+	</div>
+  <div ng-show="trace_file.file_browser && trace_file.inNewTab"  style="background-color:#d3d3d3">
+<div layout="column" style="background-color:#fefefe">
+  <section>
+    <md-input-container style="margin-top: 32px;" layout-nowrap>
+      <label>File Directory</label>
+      <input id="exp" ng-model="config.cqDirectory" name="cqDirectory" size="60" type="text" ng-blur="trace_file.getfiles()" ng-keyup="$event.keyCode == 13 ? trace_file.getfiles() : null">
+      <div ng-messages="showDirSelect.cqDirectory.$error">
+        <div>{{ trace_file.dirValidationMsg }}</div>
+      </div>
+    </md-input-container>
+    <md-input-container style="margin-top: 32px;" layout-nowrap>
+      <label>Filter*</label>
+      <input ng-model="config.file_filter" name="Filter" size="20" type="text" ng-blur="trace_file.getfiles()" ng-keyup="$event.keyCode == 13 ? trace_file.getfiles() : null">
+    </md-input-container>
+    <md-button class="md-icon-button" title="Filter files" data-placement="bottom"  aria-label="info" style="background-color: #f0f0f0;vertical-align: super;" ng-click="trace_file.getfiles()" ng-show="!trace_file.files">
+      <i class="material-icons">keyboard_return</i>
+    </md-button>
+    <md-input-container class="md-input-has-value" layout-nowrap style="vertical-align:super;margin:0px;" ng-if="trace_file.files">
+      <label>Files in the Directory:</label>
+      <div ng-dropdown-multiselect="" options="trace_file.dropdown_files" selected-model="trace_file.dropdown_selected_file" extra-settings="trace_file.dropdown_extra_settings" events="{onItemSelect:trace_file.dropdown_on_select,onItemDeselect:trace_file.dropdown_on_deselect}"></div>
+    </md-input-container>
+    <span style="float:right;margin:32px">
+      <md-button ng-if="trace_file.files" class="md-raised md-warn" title="Cancel Reload" data-placement="bottom" style="height:5px;color : rgb(100, 100, 100);background-color: rgba(230, 230, 229, 0.96);" ng-click="trace_file.file_browser=!trace_file.file_browser;closeDialog();" >  Cancel </md-button>
+      <md-button ng-if="trace_file.files" class="md-raised md-primary" title="Reload file" data-placement="bottom"  style="height:5px;" ng-click="trace_file.reload_file(trace_file.selected_file);closeDialog();" > Open </md-button>
+    </span>
+  </section>
+  <!-- <div style="margin-top:10px;margin-bottom:10px" ng-if="trace_file.files">
+    <div layout=row layout-align="end" flex>
+    </div> -->
+  <!-- </div> -->
+</div>
+  </div>
+
+<div ng-show="!trace_file.file_loaded && !trace_file.file_load_error && !trace_file.showFileSelectMsg && config.sizeDisplay && !trace_file.hideDiagnostics" layout="row" layout-sm="column">
+     <p align="center"><br><br>The trace file is {{config.fileTypeMsg}} {{config.traceFileSize}} MB. This will take a while to load. To initiate a fragmented load click OK, else to proceed with the full load click Cancel.<br><br></p>
+
+</div>
+<div ng-show="!trace_file.file_loaded && !trace_file.file_load_error && !trace_file.showFileSelectMsg && config.sizeDisplay && !trace_file.hideDiagnostics" layout=row layout-align="end" flex>
+  <md-button class="md-raised md-warn" title="Load file" data-placement="bottom" style="height:5px;color : rgb(100, 100, 100);background-color: rgba(230, 230, 229, 0.96);" ng-click="trace_file.load_file()" >  Cancel </md-button>
+  <md-button class="md-raised md-primary" title="Stop file loading" data-placement="bottom"  style="height:5px;" ng-click="trace_file.stop_load_file()" > Ok </md-button>
+</div>
+<div ng-show="(!trace_file.file_loaded && !trace_file.file_load_error && !trace_file.showFileSelectMsg && config.loadTraceFile) || trace_file.getting_grep_data" layout="row" layout-sm="column" layout-align="space-around">
+     <md-progress-circular class="md-warn md-hue-3" md-diameter="40"></md-progress-circular>
+</div>
+  <div ng-show="trace_file.file_load_error && trace_file.hide_grep_error"   layout="row" layout-sm="column">
+  		 <p align="center"><br><br><b>[ERROR]: </b>Could not load the specified file<br><br></p>
+  </div>
+  <div ng-show="trace_file.showFileSelectMsg" layout="row" layout-sm="column">
+       <p align="center"><br><br>Select a File to Load into Trace Viewer<br><br></p>
+  </div>
+  <div ng-show="config.bigFileLoadError" layout="row" layout-sm="column">
+       <p align="center"><br><br><b>[ERROR]: </b>Can't load the file specified, since its size of {{config.traceFileSize}}MB is greater than the supported size of {{config.fileType===".gz" && '30MB for .gz files.' || '300MB.'}} To initiate a fragmented load, please click on <b>G</b> icon.<br><br></p> </div>
+  <!-- <div ng-show="trace_file.file_loaded" ng-class="trace_file.search_results?'search_results':'no_search_results'" ui-ace="{ -->
+
+<!-- Added class "appDiv" to use it to set resize widget dimensions on the div -->
+<!-- user useWrapMode : true, as one of the options for enabling wrap mode, showGutter: false,-->
+<div class="appDiv" ng-show="trace_file.file_loaded" ui-ace="{
+theme:'dreamweaver',
+mode: 'text',
+firstLineNumber: 1,
+onLoad: aceLoaded,
+onChange: aceChanged
+}" ></div>
+  <div style="resize:vertical;" ng-if="trace_file.editor">
+    <hyper-Ace  ng-show="config.search_results && trace_file.file_loaded" editor="trace_file.editor" search="config.data_filter"></hyper-Ace>
+  </div>
+</div>

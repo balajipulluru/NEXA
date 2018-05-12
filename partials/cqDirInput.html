@@ -1,0 +1,228 @@
+<md-dialog aria-label="Enter the Logic Debug directory">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <img src="../icons/nn4.png" style="height: 40px;" />
+            <h2 ng-show="param!='showCQ'">Enter Logic Debug Directory Sources</h2>
+            <h2 ng-show="param=='showCQ'">NEXA Session Settings</h2>
+            <span flex></span>
+            <a style="cursor: pointer;" ng-click="cancel()"><i class="material-icons">close</i></a>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content ng-show="helper_loading">
+      <div class="md-dialog-content" layout="column" layout-sm="column" layout-align="center center">
+        <p>NEXA Helper is being launched.<br>
+	This enables NEXA to have access to AFS workspaces.<br>
+	Please wait ...</p>
+        <md-progress-circular class="md-warn md-hue-3" md-diameter="50"></md-progress-circular>'
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-content ng-show="!helper_loading">
+        <div class="md-dialog-content">
+            <form  novalidate role="form" name="cqDirForm">
+                <div layout="column">
+                    <md-input-container >
+                        <label>Logic Debug Directory</label>
+                        <input ng-model="dgCtrl.cqDirectory" name="cqDirectory" size="50" ng-required="dirValidation(dgCtrl)" type="text" ng-readonly="param=='showCQ'">
+                        <md-icon><i class="material-icons">help_outline</i><md-tooltip style="height: auto;" md-direction="right">The directory which contains your AET and Trace.</br>Example: /afs/apd/u/arunj/sdkssh_xfvc_hb_mac/aet</md-tooltip></md-icon>
+                        <div ng-messages="cqDirForm.cqDirectory.$error">
+                          <div>{{ dgCtrl.dirValidationMsg }}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Additional Search Directories</label>
+                        <input ng-model="dgCtrl.adSrchDirectory" name="adSrchDirectory" size="50" type="text" ng-readonly="param=='showCQ'"><md-icon><i class="material-icons">help_outline</i><md-tooltip style="height: auto;" md-direction="right">The colon seperated list of directories which contain your VHDL, IOlist.</br>Example: /afs/apd/u/arunj/vhdl:/afs/apd/u/arunj/iolist</md-tooltip></md-icon>
+                    </md-input-container>
+
+                    <!-- <div layout="row">
+                        <md-input-container >
+                            <label>User AFS Id</label>
+                            <input ng-model="dgCtrl.afsId" name="afsId" size="30" ng-required="asfIdValidation(dgCtrl)" type="text" ng-readonly="param=='showCQ'">
+                            <div ng-messages="cqDirForm.afsId.$error">
+                              <div>{{ dgCtrl.asfIdValidationMsg }}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Cell Name</label>
+                            <input ng-model="dgCtrl.cellName" name="cellName" size="30" ng-required="cellValidation(dgCtrl)" type="text" ng-readonly="param=='showCQ'">
+                            <div ng-messages="cqDirForm.cellName.$error">
+                              <div>{{ dgCtrl.cellValidationMsg }}</div>
+                            </div>
+                        </md-input-container>
+                    </div> -->
+                    <div ng-show="!isValidCQDir() && param!='showCQ'" layout=row layout-align="end" flex>
+                        <md-button ng-click="cancel()" class="md-raised md-primary">Cancel</md-button>
+                        <md-button ng-click="loadCQDebug(dgCtrl);dirValidation(dgCtrl);"  type="submit" class="md-raised md-primary">Submit</md-button>
+                    </div>
+                    <div ng-show="isValidCQDir() || param=='showCQ'" layout="column">
+                        <md-switch ng-show="param!='showCQ'" ng-model="dgCtrl.filesWithPath" class="md-primary" ng-change="setFilesWithPath(dgCtrl.filesWithPath);" name="filesWithPath" aria-label="Switch 1">
+                            Show Files with Path
+                        </md-switch>
+                        <md-autocomplete class="CqdirAutocomplete" ng-show="param!='showCQ'"
+                            md-clear-button="true"
+                            md-input-name="TraceAutoCompleteField"
+                            md-no-cache="true"
+                            md-selected-item="dgCtrl.traceOption"
+                            md-search-text="dgCtrl.traceSearchText"
+                            md-items="item in QuerySearch(dgCtrl.traceSearchText,'traceOptions')"
+                            md-item-text="getItemData(item)"
+                            md-min-length="0"
+                            md-autoselect="true"
+                            md-autofocus
+                            md-dropdown-position="bottom"
+                            md-require-match
+                            md-floating-label="Trace File">
+                          <md-item-template>
+                            <span ng-show=!getFilesWithPath(); md-highlight-text="dgCtrl.traceSearchText" md-highlight-flags="^i">{{item.fileName}}</span>
+                            <span ng-show=getFilesWithPath(); md-highlight-text="dgCtrl.traceSearchText" md-highlight-flags="^i">{{item.fullPath}}</span>
+                          </md-item-template>
+                          <md-not-found>
+                            No trace file matching "{{dgCtrl.traceSearchText}}" were found.
+                          </md-not-found>
+                          <!-- <div ng-messages="cqDirForm.TraceAutoCompleteField.$error" ng-if="cqDirForm.TraceAutoCompleteField.$touched">
+                            <div ng-message="required">This is required!.</div>
+                          </div> -->
+                        </md-autocomplete>
+                        <md-input-container ng-show="param=='showCQ'">
+                            <label>Trace File</label>
+                            <input ng-model="dgCtrl.traceOption" name="traceOption" size="30" type="text" ng-readonly="param=='showCQ'">
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Hierarchy</label>
+                            <input ng-model="dgCtrl.hierarchy" name="Hierarchy" size="30" type="text" ng-readonly="param=='showCQ'">
+                        </md-input-container>
+                        <md-autocomplete class="CqdirAutocomplete" ng-show="param!='showCQ'"
+                            md-clear-button="true"
+                            md-input-name="AETAutoCompleteField"
+                            md-no-cache="true"
+                            md-selected-item="dgCtrl.aetOption"
+                            md-search-text="dgCtrl.aetSearchText"
+                            md-items="item in QuerySearch(dgCtrl.aetSearchText,'aetOptions')"
+                            md-item-text="getItemData(item)"
+                            md-min-length="0"
+                            md-autoselect="true"
+                            md-autofocus
+                            md-dropdown-position="bottom"
+                            md-require-match
+                            md-floating-label="AET File">
+                          <md-item-template>
+                            <span ng-show=!getFilesWithPath(); md-highlight-text="dgCtrl.aetSearchText" md-highlight-flags="^i">{{item.fileName}}</span>
+                            <span ng-show=getFilesWithPath(); md-highlight-text="dgCtrl.aetSearchText" md-highlight-flags="^i">{{item.fullPath}}</span>
+                          </md-item-template>
+                          <md-not-found>
+                            No AET matching "{{dgCtrl.aetSearchText}}" were found.
+                          </md-not-found>
+                          <!-- <div ng-messages="cqDirForm.AETAutoCompleteField.$error" ng-if="cqDirForm.AETAutoCompleteField.$touched">
+                            <div ng-message="required">This is required!.</div>
+                          </div> -->
+                        </md-autocomplete>
+                        <md-input-container ng-show="param=='showCQ'">
+                            <label>AET File</label>
+                            <input ng-model="dgCtrl.aetOption" name="aetOption" size="30" type="text" ng-readonly="param=='showCQ'">
+                        </md-input-container>
+                        <md-autocomplete class="CqdirAutocomplete" ng-show="param!='showCQ'"
+                            md-clear-button="true"
+                            md-input-name="vhdlAutoCompleteField"
+                            md-no-cache="true"
+                            md-selected-item="dgCtrl.vhdlOption"
+                            md-search-text="dgCtrl.vhdlSearchText"
+                            md-items="item in QuerySearch(dgCtrl.vhdlSearchText,'vhdlOptions')"
+                            md-item-text="getItemData(item)"
+                            md-min-length="0"
+                            md-autoselect="true"
+                            md-dropdown-position="bottom"
+                            md-autofocus
+                            md-require-match
+                            md-floating-label="VHDL File">
+                          <md-item-template>
+                            <span ng-show=!getFilesWithPath(); md-highlight-text="dgCtrl.vhdlSearchText" md-highlight-flags="^i">{{item.fileName}}</span>
+                            <span ng-show=getFilesWithPath(); md-highlight-text="dgCtrl.vhdlSearchText" md-highlight-flags="^i">{{item.fullPath}}</span>
+                          </md-item-template>
+                          <md-not-found>
+                            No vhdl matching "{{dgCtrl.vhdlSearchText}}" were found.
+                          </md-not-found>
+                          <!-- <div ng-messages="cqDirForm.vhdlAutoCompleteField.$error" ng-if="cqDirForm.vhdlAutoCompleteField.$touched">
+                            <div ng-message="required">This is required!.</div>
+                          </div> -->
+                        </md-autocomplete>
+                        <md-input-container ng-show="param=='showCQ'">
+                            <label>VHDL File</label>
+                            <input ng-model="dgCtrl.vhdlOption" name="vhdlOption" size="30" type="text" ng-readonly="param=='showCQ'">
+                        </md-input-container>
+                        <md-autocomplete class="CqdirAutocomplete" ng-show="param!='showCQ'"
+                            md-clear-button="true"
+                            md-input-name="IOLISTAutoCompleteField"
+                            md-no-cache="true"
+                            md-selected-item="dgCtrl.iolistOption"
+                            md-search-text="dgCtrl.iolistSearchText"
+                            md-items="item in QuerySearch(dgCtrl.iolistSearchText,'ioOptions')"
+                            md-item-text="getItemData(item)"
+                            md-min-length="0"
+                            md-autoselect="true"
+                            md-autofocus
+                            md-dropdown-position="bottom"
+                            md-require-match
+                            md-floating-label="IO List">
+                          <md-item-template>
+                            <span ng-show=!getFilesWithPath(); md-highlight-text="dgCtrl.iolistSearchText" md-highlight-flags="^i">{{item.fileName}}</span>
+                            <span ng-show=getFilesWithPath(); md-highlight-text="dgCtrl.iolistSearchText" md-highlight-flags="^i">{{item.fullPath}}</span>
+                          </md-item-template>
+                          <md-not-found>
+                            No IO List matching "{{dgCtrl.iolistSearchText}}" were found.
+                          </md-not-found>
+                          <!-- <div ng-messages="cqDirForm.IOLISTAutoCompleteField.$error" ng-if="cqDirForm.IOLISTAutoCompleteField.$touched">
+                            <div ng-message="required">This is required!.</div>
+                          </div> -->
+                        </md-autocomplete>
+                        <md-input-container ng-show="param=='showCQ'">
+                            <label>IO List</label>
+                            <input ng-model="dgCtrl.iolistOption" name="iolistOption" size="30" type="text" ng-readonly="param=='showCQ'">
+                        </md-input-container>
+                        <md-autocomplete class="CqdirAutocomplete" ng-show="param!='showCQ' && csvOptionsLength!='0'"
+                            md-clear-button="true"
+                            md-input-name="CSVAutoCompleteField"
+                            md-no-cache="true"
+                            md-selected-item="dgCtrl.csvOption"
+                            md-search-text="dgCtrl.csvSearchText"
+                            md-items="item in QuerySearch(dgCtrl.csvSearchText,'csvOptions')"
+                            md-item-text="getItemData(item)"
+                            md-min-length="0"
+                            md-autoselect="true"
+                            md-autofocus
+                            md-dropdown-position="bottom"
+                            md-require-match
+                            md-floating-label="CSV File">
+                          <md-item-template>
+                            <span ng-show=!getFilesWithPath(); md-highlight-text="dgCtrl.csvSearchText" md-highlight-flags="^i">{{item.fileName}}</span>
+                            <span ng-show=getFilesWithPath(); md-highlight-text="dgCtrl.csvSearchText" md-highlight-flags="^i">{{item.fullPath}}</span>
+                          </md-item-template>
+                          <md-not-found>
+                            No CSV matching "{{dgCtrl.csvSearchText}}" were found.
+                          </md-not-found>
+                          <!-- <div ng-messages="cqDirForm.CSVAutoCompleteField.$error" ng-if="cqDirForm.CSVAutoCompleteField.$touched">
+                            <div ng-message="required">This is required!.</div>
+                          </div> -->
+                        </md-autocomplete>
+                        <md-input-container ng-show="param=='showCQ' && dgCtrl.csvOption">
+                            <label>CSV File</label>
+                            <input ng-model="dgCtrl.csvOption" name="csvOption" size="30" type="text" ng-readonly="param=='showCQ'">
+                        </md-input-container>
+                        <!-- <md-input-container>
+                            <label>NEXA Scratch Pad</label>
+                            <textarea ng-model="dgCtrl.scratchPad" name="scratchPad"></textarea>
+                        </md-input-container>                                                  -->
+                        <div ng-show="param!='showCQ'" layout=row layout-align="end" flex>
+                            <md-button ng-click="cancel()" class="md-raised md-primary">Cancel</md-button>
+                            <md-button ng-click="loadDebug(dgCtrl)" type="submit" class="md-raised md-primary">Submit</md-button>
+                        </div>
+                        <div ng-show="param=='showCQ'" layout=row layout-align="end" flex>
+                            <md-button ng-click="cancel()" type="submit" class="md-raised md-primary">OK</md-button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </md-dialog-content>
+</md-dialog>

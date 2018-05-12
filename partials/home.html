@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<!--*
+ The MIT License
+
+ Copyright (c) 2014, Sebastian Sdorra
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="dashboard sample app">
+    <meta name="author" content="Sebastian Sdorra">
+
+    <title>Logic Workbench</title>
+
+
+
+	<script type="text/javascript">
+		 IBMCore.common.util.config.set({
+		  "masthead":{
+		    "type":"alternate"
+		  },
+		  "footer":{
+		    "type":"alternate",
+		    "socialLinks":{
+		      "enabled":false
+		    }
+		  }
+		});  
+	 </script>
+	 
+	 <script>
+		function openNav() {
+			var sideNav = document.getElementById("mySidenav");
+			 if (sideNav.style.width === "") {
+		   		sideNav.style.width = "700px";
+		    } else {
+		    	sideNav.style.width = "";
+		    }
+		}
+		
+		function closeNav() {
+		    document.getElementById("mySidenav").style.width = "";
+		}
+	</script>
+
+    <link href="../components/adf-widget-clock/dist/adf-widget-clock.min.css" rel="stylesheet">
+    <link href="../components/adf-widget-iframe/dist/adf-widget-iframe.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic">
+    <link href="../styles/app.css" rel="stylesheet">
+
+    <link href="../components/angular-dashboard-framework/dist/angular-dashboard-framework.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    	
+    <link href="../styles/contextMenu.css" rel="stylesheet">
+    <link href="//1.www.s81c.com/common/v18/css/www.css" rel="stylesheet" />
+    <!-- endbuild -->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+      <script>
+        document.createElement('adf-dashboard');
+        document.createElement('adf-widget');
+        document.createElement('adf-widget-content');
+      </script>
+    <![endif]-->
+  </head>
+  <body id="ibm-com" class="ibm-type" ng-app="LWBHome" ng-controller="AppCtrl" ng-cloak>
+    <div id="ibm-top" class="ibm-landing-page" >
+
+ 
+		<div id="ibm-content-wrapper"> <!-- This div id added for V18, this div is closed just above footer starts -->
+		<!-- LEADSPACE_BEGIN -->
+		<header role="banner" aria-labelledby="ibm-pagetitle-h1" >   <!-- added for V18 -->
+		
+
+			<!-- v18 code for app header start -->   
+		   	<div class="ibm-sitenav-menu-container">
+		   	
+			   	<div id="mySidenav" class="sidenav" style="overflow: auto;overflow-x: hidden;overflow-y: hidden;">
+			   	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()"> &times; </a>
+					 
+					    
+					    <md-card style="padding: 5px;">
+						  <md-card-title>
+						    <md-card-title-text>
+						      <span class="md-headline">{{LWBconfig.applnBanner}} User </span>
+						      <span class="md-subhead description">Having few live sessions</span>
+						    </md-card-title-text>
+							<md-card-title-media>
+						      <div class="md-media-sm card-media" layout>
+						        <md-icon style="font-size:35px;" class="fa">&#xf2be;</md-icon>
+						      </div>
+						    </md-card-title-media>					    
+						  </md-card-title>
+						</md-card>
+						
+						<md-card style="padding: 5px;">
+							<md-card-title>
+								<md-card-title-text>
+				            		<span class="md-headline" >Installed Plugins</span>
+				           		</md-card-title-text>
+				            </md-card-title>
+				            <md-card-content style="height:80px;overflow-y: auto">
+					            <p>Plugin 1</p>
+			                    <p>Plugin 2</p>
+				            </md-card-content>
+			            </md-card>
+			            
+			            <md-card style="padding: 5px;">
+			            	<md-card-title>
+								<md-card-title-text>
+						            <span class="md-headline">Session Details</span>
+						        </md-card-title-text>
+				            </md-card-title>
+				            <md-card-content style="height:200px;overflow-y: auto">
+									<table>
+										<tr ng-repeat="session in sessionList" ng-click="showClient(session)" style="cursor:pointer" target="_blank">
+											<td style="text-align: left;">{{session.description}} - {{session.start_time_relative}}, {{session.app_name}}-{{session.app_version}}</td>
+										</tr>
+									</table>
+							</md-card-content>
+						</md-card>
+
+				</div>
+				
+			 	<div id="ibm-home"><a href="http://www.ibm.com/in-en/">IBM�</a></div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<div class="ibm-sitenav-menu-name" style="font-size:130%"> {{LWBconfig.applnBanner}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i style="font-size:27px;cursor:pointer" onclick="openNav()" class="fa">&#xf2be;</i> </div>
+				<div class="ibm-sitenav-menu-list">
+					<ul role="menubar" >
+						<li role="presentation"><a role="menuitem" href="" onclick="openNav()">Home</a></li>
+						<li role="presentation" class="ibm-haschildlist"><button role="menuitem">Session</button>
+						<ul role="menu" aria-label="Actions">
+							<li role="presentation"><a role="menuitem" href="#">New Session</a></li>
+							<li role="presentation"><a role="menuitem" href="#">Expand Session</a></li>
+							<li role="presentation"><a role="menuitem" href="#">Share Session</a></li>
+							<li role="presentation"><a role="menuitem" href="#">End Session</a></li>
+						</ul></li>
+						<li role="presentation" class="ibm-haschildlist"><button role="menuitem">Debug</button>
+						<ul role="menu" aria-label="Actions">
+							<li role="presentation"><a role="menuitem" href="#">Open Editor</a></li>
+							<li role="presentation"><a role="menuitem" href="#">Timing Annotation</a></li>
+							<li role="presentation"><a role="menuitem" href="#">AET Annotation</a></li>
+							<li role="presentation"><a role="menuitem" href="#">Clear Quest</a></li>
+							<li role="presentation"><a role="menuitem" href="#">Open Sim Fail</a></li>
+							<li role="presentation"><a role="menuitem" href="#">Open Timing</a></li>
+						</ul></li>
+						<li role="presentation"><a role="menuitem" href="#">Settings</a></li>
+						<li role="presentation"><a role="menuitem" href="#" onclick="signOut();">Sign out</a></li>
+					</ul>
+				</div>
+			</div>
+            
+			<div id="ibm-leadspace-head" class="ibm-background-blue-core ibm-alternate ibm-alternate-background"  style="background-image: url(../images/LWB.jpg); background-repeat: no-repeat; background-size: cover;" data-widget="parallaxscroll">
+			    <div id="ibm-leadspace-body">
+			                <div class="ibm-columns">
+			            <div class="ibm-col-1-1">        
+			                <h1 id="ibm-pagetitle-h1" class="ibm-h1 ibm-light">{{LWBconfig.applnName}}</h1>
+			                <!-- <h2 class="ibm-padding-top-30">{{.applnTag}}</h2> -->
+			            </div>
+			        </div>
+			    </div>
+			</div>        
+        </header>
+        
+		<div layout="column">
+	<div class="container" ng-controller="navigationCtrl as nav">
+    	<md-content class="md-padding">
+		    <md-tabs md-selected="0" md-border-bottom="" md-stretch-tabs="always" md-dynamic-height="true">
+		      <md-tab ng-class="nav.navClass('boards/' + item.id)" ng-repeat="item in nav.items | orderBy: title">
+				<a href="#/boards/{{item.id}}">{{item.title}}</a>
+		      </md-tab>
+			  <md-tab><a style="cursor: pointer;" ng-click="nav.create()">Create Interface</a></md-tab>
+		    </md-tabs>
+			<div>
+			  <ng-view />
+			</div>
+		  </md-content>
+		  </div>
+		</div>
+		
+		<br><br><br>
+		<div id="stickyfooter">
+			<section layout="row" layout="column" layout-align="left center">
+	            <md-button>Switch Revision</md-button>
+	            <md-button>Model Build</md-button>
+	            <md-button>Rerun Testcase</md-button>
+	            <md-button>Run Regression</md-button>
+	            <md-button>Run Timing</md-button>
+	            <span style="padding-left:300px;">|</span><span style="padding-left: 10px;">VHDL Revision: zc2_l3c003_fixes. Sandbox: apd-zchp2 - sandbox/mk01.</span>
+	        </section>
+	        <p></p>
+		</div>
+
+	<script src="//1.www.s81c.com/common/v18/js/www.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	
+	<script src="http://edautil1.pok.ibm.com/ng/angular.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+	<script src="//code.angularjs.org/1.6.0/angular-route.min.js"></script>
+	
+
+	
+	<!-- angular-ui-router  -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
+	
+    <!-- components -->
+    <script type="text/javascript" src="../components/Sortable/Sortable.min.js"></script>
+    <script type="text/javascript" src="../components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="../components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script type="text/javascript" src="../components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="../components/angular-dashboard-framework/dist/angular-dashboard-framework.js"></script>
+    
+	<!-- custom script to override angular-dashboard-framwork -->
+	<script type="text/javascript" src="../scripts/adfCustom.js"></script>
+
+    <!-- scripts -->
+    <script type="text/javascript" src="../scripts/app.js"></script>
+	<script type="text/javascript" src="../components/ng-contextmenu/dist/ng-contextmenu.js"></script>
+
+    <script>
+	function signOut() {
+// 	  var xhttp = new XMLHttpRequest();
+// 	  xhttp.open("POST", "/logout", true);
+// 	  xhttp.send();
+
+		$.ajax({ url: '/logout',
+			 type: 'POST',
+			 success: function(response){
+                 window.location.href = response.redirect;
+             }
+			});
+	}
+	</script>
+
+	<!-- custome script for context Menu display -->
+	<script type="text/javascript" src="../scripts/contextMenuCustom.js"></script>
+	
+	<link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/sideNav.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- structures -->
+    <script type="text/javascript" src="../components/adf-structures-base/dist/adf-structures-base.min.js"></script>
+
+    <!-- clock -->
+    <script type="text/javascript" src="../components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="../components/adf-widget-clock/dist/adf-widget-clock.min.js"></script>
+
+    <!-- github -->
+    <script type="text/javascript" src="../components/highcharts/adapters/standalone-framework.js"></script>
+    <script type="text/javascript" src="../components/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="../components/highcharts-ng/dist/highcharts-ng.js"></script>
+    <script type="text/javascript" src="../components/adf-widget-github/dist/adf-widget-github.min.js"></script>
+
+    <!-- iframe -->
+    <script type="text/javascript" src="../components/adf-widget-iframe/dist/adf-widget-iframe.min.js"></script>
+
+    <!-- linklist -->
+    <script type="text/javascript" src="../components/adf-widget-linklist/dist/adf-widget-linklist.min.js"></script>
+
+    <!-- markdown -->
+    <script type="text/javascript" src="../components/showdown/compressed/Showdown.min.js"></script>
+    <script type="text/javascript" src="../components/angular-markdown-directive/markdown.js"></script>
+    <script type="text/javascript" src="../components/adf-widget-markdown/dist/adf-widget-markdown.js"></script>
+
+    <!-- news -->
+    <script type="text/javascript" src="../components/adf-widget-news/dist/adf-widget-news.min.js"></script>
+
+    <!-- randommsg -->
+    <script type="text/javascript" src="../components/adf-widget-randommsg/dist/adf-widget-randommsg.min.js"></script>
+
+    <!-- version -->
+    <script type="text/javascript" src="../components/adf-widget-version/dist/adf-widget-version.min.js"></script>
+
+    <!-- weather -->
+    <script type="text/javascript" src="../components/adf-widget-weather/dist/adf-widget-weather.min.js"></script>
+	
+	<!-- Hierarchy Browser -->
+	<script type="text/javascript" src="../components/hierarchy_browser/dist1/Hierarchy_Browser.js"></script>
+	<script type="text/javascript" src="../components/hierarchy_browser/dist1/userid.js"></script>
+	<script type="text/javascript" src="../components/hierarchy_browser/dist1/websocket.js"></script>
+	
+	<!-- AET Viewer -->
+	<script type="text/javascript" src="../components/AET_Viewer/src/AET_Viewer.js"></script>
+	
+	<!-- VHDL Browser -->
+	<script type="text/javascript" src="../components/VHDL_browser/src/vhdl_browser.js"></script>
+	
+	<!-- Design Intent -->
+	<script type="text/javascript" src="../components/design_intent/src/design_intent.js"></script>
+	
+	<!-- Coverage Tracker -->
+	<script type="text/javascript" src="../components/coverage_tracker/src/coverage_tracker.js"></script>
+	
+	<!-- Timing Report -->
+	<script type="text/javascript" src="../components/timing_report/src/timing_report.js"></script>
+	
+	<!-- Trace File -->
+	<script type="text/javascript" src="../components/trace_file/src/trace_file.js"></script>
+	
+	
+	
+	
+	</div>
+	</div>
+	
+  </body>
+</html>

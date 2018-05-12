@@ -1,0 +1,82 @@
+.multiselect-parent {
+    margin-right: 0px;
+    margin-top: 0px;
+}
+.multiselect-parent .dropdown-toggle{
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    min-height: 36px;
+    -webkit-box-align: center;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+    user-select: none;
+    outline: none;
+    border: 0;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 12px;
+    font-style: inherit;
+    font-variant: inherit;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    text-decoration: none;
+    overflow: hidden;
+    transition: box-shadow .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1);
+    letter-spacing: .01em;
+    margin: 0 6px;
+    height: 40px;
+    min-width: 0;
+    line-height: 24px;
+    padding: 8px;
+    vertical-align: super;
+    background: #fefefe;
+    background-color: #fdfdfd;
+    color: black;
+    width: fit-content;
+    border-bottom: 1px solid rgba(0,0,0,0.12);;
+    box-shadow: none;
+    min-width: 150px;
+  }
+
+.dropdown-toggle.btn.btn-default,.btn-group.open > .dropdown-toggle.btn, .btn-group.open > .dropdown-toggle.btn.btn-default, .btn.btn-default:active:focus {
+  background-color: #fefefe;
+  color:rgba(0,0,0);
+  box-shadow: none;
+}
+
+.multiselect-parent span {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.dropdown-menu>.active>a {
+  background: white;
+  color: rgb(63,81,181);
+  box-shadow: none;
+}
+.dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:active, .dropdown-menu>.active>a:hover {
+  background: rgb(238,238,238);
+}
+
+.dropdown-header .form-control:focus {
+  border-color: rgb(238,238,238);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(100, 100, 100, 0.6);
+}
+.dropdown-menu li a:hover {
+    background: rgb(238,238,238);
+    color:rgba(33,33,33,0.87);
+    box-shadow: none;
+}
+
+.multiselect-parent label {
+      display: none;
+}
+.multiselect-parent .glyphicon {
+      display: none;
+}
+.multiselect-parent .dropdown-menu {
+      max-height: : 300px;
+}

@@ -1,0 +1,96 @@
+	<div ng-if=!nav.items.length style="background-color: #FAFAFA;">
+	<div class="container" ng-init="iDIR($event)">
+		<h2>Welcome!</h2>
+<!-- 		<p>Seems there is no Dashboard added to your session.</p> -->
+		<div layout="row" layout-wrap>
+		  <div flex>
+
+		<!--   <md-content class="md-padding" layout-xs="row" layout="column" style="background-color: white;">
+		    <div flex-xs layout="row"> -->
+		      <md-card style="background-color: white;color:black;">
+		        <img ng-src="../images/3.jpg" class="md-card-image" alt="Washed Out">
+		        <md-card-title>
+		          <md-card-title-text>
+		            <span class="md-headline" style="text-align: center;">Use Cases</span>
+		          </md-card-title-text>
+		        </md-card-title>
+		        <md-card-actions layout-align="center">
+					<div layout-align="center center" layout="column">
+						<!-- <label for="folder" class="btn btn-primary" style="background: #5748BB;font-size: 15px;">SELECT LOGIC DEBUG DIRECTORY</label>
+						<input id="folder" class="ng-hide" type="file" ng-model-instant multiple onchange="angular.element(this).scope().selectFolder(this)" webkitdirectory="webkitdirectory"/> -->
+						<md-list-item layout-align="center">
+					    <md-menu>
+					      <md-button class="md-primary md-raised" style="width:230px;" >SELECT A USE CASE</md-button>
+					      <md-menu-content style="padding-top: 0px;padding-bottom: 0px;">
+					        <md-menu-item>
+					          <md-button class="md-primary md-raised" style="text-align:center;width:230px;" ng-click="inputCQDir($event,'LogicDebugDir')">LOGIC DEBUG</md-button>
+					        </md-menu-item>
+					        <md-menu-divider></md-menu-divider>
+					        <md-menu-item>
+					          <md-button class="md-primary md-raised" style="text-align:center;width:230px;" ng-click="inputCQDir($event,'ClockGatePower')">
+					            CLOCK GATING AND POWER
+					          </md-button>
+					        </md-menu-item>
+					      </md-menu-content>
+					    </md-menu>
+					    </md-list-item>						
+					</div>
+					<div ng-show="nav.hasFiles();" style="text-align: center;">
+						<textarea id="log" style="min-height: 100px;"></textarea>
+					</div>
+					<div ng-show="nav.hasFiles();" style="text-align: center;" >
+						<p><a ui-sref="login" class="btn btn-primary btn-success" style="width:230px;font-size: 15px;" ng-click="nav.create(22)">Initialize a NEXA Session</a> </p>
+					</div>
+		          <!-- <md-button ng-click="nav.create(1)" class="md-primary md-raised">Initialize Session</md-button> -->
+		        </md-card-actions>
+		        <md-card-content>
+		          <p>
+		           <!-- Initialize NEXA session from Logic Debug directory -->
+		          </p>
+		        </md-card-content>
+		      </md-card>
+		      </div>
+		      <div flex >
+			  <md-card style="background-color: white;color:black;">
+		        <img ng-src="../images/4.jpg" class="md-card-image" alt="Washed Out">
+		        <md-card-title>
+		          <md-card-title-text>
+		            <span class="md-headline" style="text-align: center;">Auto Initialize a Nexa session</span>
+		          </md-card-title-text>
+		        </md-card-title>
+		        <md-card-actions layout="row" layout-align="center">
+		          <md-button ng-click="iDIR($event)" style="width:230px;" class="md-primary md-raised">Session Initializer</md-button>
+		        </md-card-actions>
+		        <md-card-content>
+		          <p>
+		           <!-- Auto Initialize a Nexa session -->
+		          </p>
+		        </md-card-content>
+		      </md-card>
+		      </div>
+		      <div flex >
+		      <md-card style="background-color: white;color:black;">
+		        <img ng-src="../images/12.jpg" class="md-card-image" alt="Washed Out">
+		        <md-card-title>
+		          <md-card-title-text>
+		            <span class="md-headline" style="text-align: center;">Add NEXA Dashboard & Applications</span>
+		          </md-card-title-text>
+		        </md-card-title>
+		        <md-card-actions layout="row" layout-align="center">
+		          <md-button class="md-primary md-raised" ng-click="nav.create()" style="width:230px;">Add NEXA Dashboard</md-button>
+		        </md-card-actions>
+		        <md-card-content>
+		          <p>
+		            <!-- Add NEXA Dashboard & Applications -->
+		          </p>
+		        </md-card-content>
+		      </md-card>
+		      </div>
+
+
+		      <!-- </div>
+		      </md-content> -->
+
+		</div>
+		</div>
+		</div>

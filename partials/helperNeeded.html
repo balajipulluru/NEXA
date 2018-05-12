@@ -1,0 +1,59 @@
+<md-dialog aria-label="Helper Needed">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <img style="height:50%" src="icons/error.png" alt="Error">
+        <h2>&nbsp&nbsp&nbsp{{helper_header}}</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+    <div ng-if="helper_code==1" class="md-dialog-content">
+      <h4>Cannot proceed with session initialization:</h4>
+        <ps tyle="padding-left: 4em;">Helper process found for cell: <b>{{helperdata.cell}}</b> does not have any tokens.</p>
+        <p>Please re-launch the helper process:</p>
+        <p style="padding-left: 4em;">
+          1. Kill helper process: <a href="http://w3.eda.ibm.com/services/prod/g2" target="_blank">http://w3.eda.ibm.com/services/prod/g2</a>
+        </p>
+        <p style="padding-left: 4em;">
+          2. Please setup cteklog as per <a href="https://ibm.box.com/v/nexahelper" target="_blank">https://ibm.box.com/v/nexahelper</a> and re-intiliaze the session.
+        </p>
+      </div>
+      <div ng-if="helper_code==2" class="md-dialog-content">
+          <h4>Cannot proceed with session initialization:</h4>
+          <p style="padding-left: 4em;">1. The input files provided for initialization spans across multiple cells: <b>{{cellList}}</b>.</p>
+          <p style="padding-left: 4em;">2. Helper process found for cell: <b>{{helperdata.cell}}</b> does not have tokens for cells: <b>{{cell_fail_list}}</b></p>
+          <p>Please re-launch the helper process:</p>
+          <p style="padding-left: 4em;">
+            1. Kill helper process: <a href="http://w3.eda.ibm.com/services/prod/g2" target="_blank">http://w3.eda.ibm.com/services/prod/g2</a>
+          </p>
+          <p style="padding-left: 4em;">
+            2. Please setup cteklog as per <a href="https://ibm.box.com/v/nexahelper" target="_blank">https://ibm.box.com/v/nexahelper</a> and re-intiliaze the session.
+          </p>
+        </div>
+        <!-- cteKlogInfo -->
+      <div ng-if="cteklog_code==1" class="md-dialog-content">
+          <h4>Your sessions may expire soon!</h4>
+          <p>Cteklog setup was not found for cell: <b>{{helperdata.cell}}</b></p>
+          <p>Please setup cteklog according to: <a href="https://ibm.box.com/v/nexahelper" target="_blank">https://ibm.box.com/v/nexahelper</a></p>
+      </div>
+      <div ng-if="cteklog_code==2" class="md-dialog-content">
+          <h4>Cannot proceed with session initialization:</h4>
+          <p style="padding-left: 4em;">1. Cteklog setup was not found for cell: <b>{{helperdata.cell}}</b>.</p>
+          <p style="padding-left: 4em;">2. The input files provided for initialization spans across cells: <b>{{cellList}}</b>.</p>
+          <p>Please setup cteklog as per <a href="https://ibm.box.com/v/nexahelper" target="_blank">https://ibm.box.com/v/nexahelper</a> and re-intiliaze the session.</p>
+      </div>
+      <div ng-if="cteklog_code==3" class="md-dialog-content">
+          <h4>Cannot proceed with session initialization:</h4>
+          <p style="padding-left: 4em;">1. The input files provided for initialization spans across multiple cells: <b>{{cellList}}</b>.</p>
+          <p style="padding-left: 4em;">2. Helper Process launched for the cell <b>{{helperdata.cell}}</b>, did not have tokens for cells <b>{{cell_fail_list}}</b>.</p>
+          <p>Please setup cteklog for cell <b>{{helperdata.cell}}</b> as documented in <a href="https://ibm.box.com/v/nexahelper" target="_blank">https://ibm.box.com/v/nexahelper</a> and re-intiliaze the session.</p>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button class="md-raised md-primary" ng-click="answer('')">
+       Got it!
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

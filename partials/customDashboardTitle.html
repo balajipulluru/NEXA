@@ -1,0 +1,36 @@
+<div class="container" style="width: 1500px">
+<span class="md-title" style="left:30px;position: relative;"> 
+	<span class=pull-right> 
+		<a href style="cursor: pointer;" ng-if=options.editable ng-click=toggleEditMode();hideInfo();>
+			<span ng-if=!editMode>
+				<i class="material-icons" style="font-size: 27px;width: 1.5em;">mode_edit</i>
+				<md-tooltip>Enable Edit Mode</md-tooltip>
+			</span>
+			<span ng-if=editMode>
+				<i class="material-icons" style="font-size: 27px;width: 1.5em;">save</i>
+				<md-tooltip>Save Changes</md-tooltip>
+			</span>
+		</a>
+		<a href style="cursor: pointer;" ng-if=editMode ng-click=addWidgetDialog()>
+			<i class="material-icons" style="font-size: 27px;width: 1.5em;">add_box</i>
+      <md-tooltip>Add Application</md-tooltip>
+		</a>
+		<a href style="cursor: pointer;" ng-if=editMode ng-click=editDashboardDialog()>
+			<i class="material-icons" style="font-size: 27px;width: 1.5em;">settings</i>
+			<md-tooltip>Edit Dashboard</md-tooltip>
+		</a>
+		<a href style="cursor: pointer;" ng-if=editMode ng-click=cancelEditMode()>
+			<i class="material-icons" style="font-size: 27px;width: 1.5em;">undo</i>
+			<md-tooltip>Undo Changes</md-tooltip>
+		</a>
+		<a href style="cursor: pointer;" ng-click="promptRename($event, model.intfId)">
+			<i class="material-icons" style="font-size: 27px;width: 1.5em;">text_fields</i>
+			<md-tooltip>Rename Dashboard</md-tooltip>
+		</a>
+		<a href style="cursor: pointer;" ng-click=delete(model.intfId)>
+			<i class="material-icons" style="font-size: 27px;width: 1.5em;">delete</i>
+			<md-tooltip>Delete Dashboard</md-tooltip>
+		</a>
+	</span>
+</span>
+</div>
